@@ -1,5 +1,5 @@
 from socket import *
-import base64
+import smtplib
 
 from pip._vendor.distlib.compat import raw_input
 
@@ -9,15 +9,15 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     endmsg = "\r\n.\r\n"
 
     # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-    mailserver = ("mail.smtp2go.com", 2525)
+    mailserver = smtplib.SMTP("smtp.gmail.com", 587)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
     clientSocket = socket(AF_INET, SOCK_STREAM)
     clientSocket.connect(mailserver)
 
     # Fill in start
     # Fill in end
-    rcptTo = "RCPT TO: <destination12(at the rate) xyz(dot)com> \r\n"
-    clientSocket.send(rcptTo.encode())
+    #rcptTo = "RCPT TO: <destination12(at the rate) xyz(dot)com> \r\n"
+    clientSocket.send(AF_INET , SOCK_STREAM)
     recv = clientSocket.recv(1024).decode()
     ##print(recv)
     #if recv[:3] != '220':
