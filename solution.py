@@ -1,78 +1,83 @@
 from socket import *
 
 
-
 def smtp_client(port=1025, mailserver='127.0.0.1'):
-    mailserver = ("127.0.0.1".encode(), 1025)
-#msg = "\r\n In computer networks!"
-#endmsg = "\r\n.\r\n"
-#mailserver = 'smtp.nyu.edu'
-#Mailport = 25  # Fill in end
-#mailserver = ( "smtp.cs.nyu.edu", 25)
+    msg = "\r\n I love computer networks!"
+    endmsg = "\r\n.\r\n"
 
-# Create socket called clientSocket and establish a TCP connection with mailserver
-ClientSocket = socket(AF_INET, SOCK_STREAM)
-   #Fill in end
-#ClientSocket.connect((mailserver,Mailport))
+
+# server = "localhost"
+server = '127.0.0.1'
+port = 1025
+emailFrom = "sm9598@nyu.edu"
+emailTo = "sm9598@nyu.edu"
+
+# Connect to the local host (an EECS server, where this code should be executed)
+mailserver = (server, port)
+
+# Create socket called clientSocket and establish a TCP connection with nailserver
+# Fill in start
 clientSocket = socket(AF_INET, SOCK_STREAM)
-clientSocket.connect(("127.0.0.1".encode(), 1025))
-recv = clientSocket.recv(1024)
+clientSocket.connect(mailserver)
+# Fill in end
+recv = clientSocket.recv(1024).decode()
+# print(recv)
+# if recv[:3] != '220':
+#    print('220 reply not received from server.')
 
-#print(recv)
-#if recv[:3] != '220':
-#    print('1:220 reply not received from server.')
-
-# Send HELLO command and print server response.
-helloCommand = 'HELO Alice\r\n'
-clientSocket.sendall(helloCommand.encode())
-recv1 = clientSocket.recv(1024)
-#print(recv1)
-#if recv1[:3] != '250':
-#    print('2:250 reply not received from server.')
+# Send HELO command and print server response.
+heloCommand = 'HELO Alice\r\n'
+clientSocket.send(heloCommand.encode())
+recv1 = clientSocket.recv(1024).decode()
+# print(recv1)
+# if recv1[:3] != '250':
+#    print('250 reply not received from server.')
 
 # Send MAIL FROM command and print server response.
-mailFrom = "MAIL FROM: <sm9598@nyu.edu> \r\n"
-clientSocket.sendall(mailFrom.encode())
-recv2 = clientSocket.recv(1024)
-#print(recv2)
-#if recv1[:3] != '250':
-#    print('3:250 reply not received from server.')
+# Fill in start
+fromCommand = 'MAIL FROM:Sudha' + emailFrom + '\r\n'
+clientSocket.send(fromCommand.encode())
+recv2 = clientSocket.recv(1024).decode()
+# print(recv2)
+# Fill in end
 
 # Send RCPT TO command and print server response.
-rcptTo = "RCPT TO: <sm9598@nyu.edu> \r\n"
-clientSocket.sendall(rcptTo.encode())
-recv3 = clientSocket.recv(1024)
-#print(recv3)
-#if recv1[:3] != '250':
-#    print('4:250 reply not received from server.')
+# Fill in start
+rcptCommand = 'RCPT TO: ' + emailTo + '\r\n'
+clientSocket.send(rcptCommand.encode())
+recv3 = clientSocket.recv(1024).decode()
+# print(recv3)
+# Fill in end
 
 # Send DATA command and print server response.
-data = "DATA\r\n"
-clientSocket.sendall(data.encode())
-recv4 = clientSocket.recv(1024)
-#print(recv4)
-#if recv1[:3] != '250':
-#    print('5:250 reply not received from server.')
+# Fill in start
+dataCommand = 'DATA\r\n'
+clientSocket.send(dataCommand.encode())
+recv4 = clientSocket.recv(1024).decode()
+# print(recv4)
+# Fill in end
 
 # Send message data.
-subject = "Subject: SMTP mail client testing \r\n\r\n"
-clientSocket.sendall(subject.encode())
-#message = raw_input("Enter your message: \r\n")
-msg = "\r\n In computer networks!"
+# Fill in start
+msg = "\r\n I love computer networks!"
+
+clientSocket.send(msg.encode())
+# Fill in end
+
+# Message ends with a single period.
+# Fill in start
 endmsg = "\r\n.\r\n"
-clientSocket.sendall(msg.encode())
-clientSocket.sendall(endmsg.encode())
-recv_msg = clientSocket.recv(1024)
-#print("6:Response after sending message body:"+recv_msg.decode())
-#if recv1[:3] != '250':
-#    print('7:250 reply not received from server.')
+clientSocket.send(endmsg.encode())
+recv5 = clientSocket.recv(1024).decode()
+# print(recv5)
+# Fill in end
 
 # Send QUIT command and get server response.
-clientSocket.sendall("QUIT\r\n".encode())
-message=clientSocket.recv(1024)
-#print(message)
-clientSocket.close()
-
-
+# Fill in start
+quitCommand = 'QUIT\r\n'
+clientSocket.send(quitCommand.encode())
+recv6 = clientSocket.recv(1024).decode()
+# print(recv6)
+# Fill in end
 if __name__ == '__main__':
     smtp_client(1025, '127.0.0.1')
