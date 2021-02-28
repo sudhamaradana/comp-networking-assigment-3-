@@ -1,11 +1,11 @@
 from socket import *
 
-from pip._vendor.distlib.compat import raw_input
 
-#def smtp_client(port=1025, mailserver='127.0.0.1'):
-mailserver = ("127.0.0.1".encode(), 1025)
-msg = "\r\n In computer networks!"
-endmsg = "\r\n.\r\n"
+
+def smtp_client(port=1025, mailserver='127.0.0.1'):
+    mailserver = ("127.0.0.1".encode(), 1025)
+#msg = "\r\n In computer networks!"
+#endmsg = "\r\n.\r\n"
 #mailserver = 'smtp.nyu.edu'
 #Mailport = 25  # Fill in end
 #mailserver = ( "smtp.cs.nyu.edu", 25)
@@ -15,7 +15,7 @@ ClientSocket = socket(AF_INET, SOCK_STREAM)
    #Fill in end
 #ClientSocket.connect((mailserver,Mailport))
 clientSocket = socket(AF_INET, SOCK_STREAM)
-clientSocket.connect(mailserver)
+clientSocket.connect(("127.0.0.1".encode(), 1025))
 recv = clientSocket.recv(1024)
 
 #print(recv)
@@ -58,6 +58,8 @@ recv4 = clientSocket.recv(1024)
 subject = "Subject: SMTP mail client testing \r\n\r\n"
 clientSocket.sendall(subject.encode())
 #message = raw_input("Enter your message: \r\n")
+msg = "\r\n In computer networks!"
+endmsg = "\r\n.\r\n"
 clientSocket.sendall(msg.encode())
 clientSocket.sendall(endmsg.encode())
 recv_msg = clientSocket.recv(1024)
