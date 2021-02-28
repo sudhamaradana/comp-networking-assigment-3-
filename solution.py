@@ -18,41 +18,41 @@ clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect(mailserver)
 recv = clientSocket.recv(1024)
 
-print(recv)
-if recv[:3] != '220':
-    print('1:220 reply not received from server.')
+#print(recv)
+#if recv[:3] != '220':
+#    print('1:220 reply not received from server.')
 
 # Send HELLO command and print server response.
 helloCommand = 'HELO Alice\r\n'
 clientSocket.sendall(helloCommand.encode())
 recv1 = clientSocket.recv(1024)
-print(recv1)
-if recv1[:3] != '250':
-    print('2:250 reply not received from server.')
+#print(recv1)
+#if recv1[:3] != '250':
+#    print('2:250 reply not received from server.')
 
 # Send MAIL FROM command and print server response.
 mailFrom = "MAIL FROM: <sm9598@nyu.edu> \r\n"
 clientSocket.sendall(mailFrom.encode())
 recv2 = clientSocket.recv(1024)
-print(recv2)
-if recv1[:3] != '250':
-    print('3:250 reply not received from server.')
+#print(recv2)
+#if recv1[:3] != '250':
+#    print('3:250 reply not received from server.')
 
 # Send RCPT TO command and print server response.
 rcptTo = "RCPT TO: <sm9598@nyu.edu> \r\n"
 clientSocket.sendall(rcptTo.encode())
 recv3 = clientSocket.recv(1024)
-print(recv3)
-if recv1[:3] != '250':
-    print('4:250 reply not received from server.')
+#print(recv3)
+#if recv1[:3] != '250':
+#    print('4:250 reply not received from server.')
 
 # Send DATA command and print server response.
 data = "DATA\r\n"
 clientSocket.sendall(data.encode())
 recv4 = clientSocket.recv(1024)
-print(recv4)
-if recv1[:3] != '250':
-    print('5:250 reply not received from server.')
+#print(recv4)
+#if recv1[:3] != '250':
+#    print('5:250 reply not received from server.')
 
 # Send message data.
 subject = "Subject: SMTP mail client testing \r\n\r\n"
@@ -61,14 +61,14 @@ clientSocket.sendall(subject.encode())
 clientSocket.sendall(msg.encode())
 clientSocket.sendall(endmsg.encode())
 recv_msg = clientSocket.recv(1024)
-print("6:Response after sending message body:"+recv_msg.decode())
-if recv1[:3] != '250':
-    print('7:250 reply not received from server.')
+#print("6:Response after sending message body:"+recv_msg.decode())
+#if recv1[:3] != '250':
+#    print('7:250 reply not received from server.')
 
 # Send QUIT command and get server response.
 clientSocket.sendall("QUIT\r\n".encode())
 message=clientSocket.recv(1024)
-print(message)
+#print(message)
 clientSocket.close()
 
 
